@@ -47,7 +47,7 @@ exports.findAll = (req, res) => {
       });
 };
   
-  // Find a single User with a UserId
+  // Find a single User with an id
 exports.findOne = (req, res) => {
     id = mongoose.Types.ObjectId(req.params.id);
     User.findById(id)
@@ -85,7 +85,9 @@ exports.update = (req, res) => {
     User.findByIdAndUpdate(
       id,
       {
-        title: req.body.location
+        location: req.body.location,
+        personsInHouse: req.body.personsInHouse,
+        houseSize: req.body.houseSize
       },
       { new: true }
     )
