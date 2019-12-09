@@ -4,19 +4,19 @@ const mongoose = require('mongoose');
 // Create and Save a new User
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.firstName) {
-      // If firstName is not present in body reject the request by
+    if (!req.body.location) {
+      // If location is not present in body reject the request by
       // sending the appropriate http code
       return res.status(400).send({
-        message: 'first name can not be empty'
+        message: 'location can not be empty'
       });
     }
   
     // Create a new User
-    const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName || ''
-    });
+    const user = new User();
+      user.location = req.body.location;
+      user.personsInHouse = req.body.personsInHouse;
+      user.houseSize = req.body.houseSize;
   
     // Save User in the database
     user
@@ -73,26 +73,26 @@ exports.findOne = (req, res) => {
   
   // Update a User identified by the UserId in the request
 exports.update = (req, res) => {
+    id = mongoose.Types.ObjectId(req.params.id);
     // Validate Request
-    if (!req.body.firstName) {
+    if (!req.body.location) {
       return res.status(400).send({
-        message: 'first name can not be empty'
+        message: 'location can not be empty'
       });
     }
   
     // Find user and update it with the request body
     User.findByIdAndUpdate(
-      req.params.userId,
+      id,
       {
-        title: req.body.firstName,
-        content: req.body.lastName || ''
+        title: req.body.location
       },
       { new: true }
     )
       .then(user => {
         if (!user) {
           return res.status(404).send({
-            message: 'User not found with id ' + req.params.userId
+            message: 'User not found with id ' + id
           });
         }
         res.send(user);
@@ -100,22 +100,23 @@ exports.update = (req, res) => {
       .catch(err => {
         if (err.kind === 'ObjectId') {
           return res.status(404).send({
-            message: 'User not found with id ' + req.params.userId
+            message: 'User not found with id ' + id
           });
         }
         return res.status(500).send({
-          message: 'Error updating user with id ' + req.params.userId
+          message: 'Error updating user with id ' + id
         });
       });
 };
   
   // Delete a User with the specified UserId in the request
 exports.delete = (req, res) => {
-    User.findByIdAndRemove(req.params.userId)
+    id = mongoose.Types.ObjectId(req.params.id);
+    User.findByIdAndRemove(id)
       .then(user => {
         if (!user) {
           return res.status(404).send({
-            message: 'User not found with id ' + req.params.userId
+            message: 'User not found with id ' + id
           });
         }
         res.send({ message: 'User deleted successfully!' });
@@ -123,11 +124,11 @@ exports.delete = (req, res) => {
       .catch(err => {
         if (err.kind === 'ObjectId' || err.name === 'NotFound') {
           return res.status(404).send({
-            message: 'User not found with id ' + req.params.userId
+            message: 'User not found with id ' + id
           });
         }
         return res.status(500).send({
-          message: 'Could not delete user with id ' + req.params.userId
+          message: 'Could not delete user with id ' + id
         });
       });
 };
