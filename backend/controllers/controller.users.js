@@ -1,111 +1,133 @@
-const express = require('express');
-var _ = require('lodash');
+const User = require('../models/model.users');
+const mongoose = require('mongoose');
 
-const router = express.Router();
-
-/* GET all movies */
-router.get('/', (req, res) => {
-    res.status(200).json({
-        movies
+// Create and Save a new User
+exports.create = (req, res) => {
+    // Validate request
+    if (!req.body.firstName) {
+      // If firstName is not present in body reject the request by
+      // sending the appropriate http code
+      return res.status(400).send({
+        message: 'first name can not be empty'
+      });
+    }
+  
+    // Create a new User
+    const user = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName || ''
     });
-});
-
-/* GET one movie */
-router.get('/:id', (req, res) => {
-    const { id } = req.params;
-    // Find user in DB
-    const movie = _.find(movies, ["id", id]);
-    // Return user
-    res.status(200).json({
-        message: 'Movie found!',
-        movie
-    });
-});
-
-/* PUT new movie 
-router.put('/', (req, res) => {
-    // Get the data from request from request
-    const { movie } = req.body;
-    // Create new unique id
-    const id = _.uniqueId();
-    // Insert it in array (normaly with connect the data with the database)
-    movies.push({ movie, id });
-    // Return message
-    res.json({
-        message: `Just added ${id}`,
-        movies
-    });
-});*/
-
-/* PUT new movie axios method */
-router.put('/', (req,res) => {
-    const { name } = req.body;
-
-    axios.get(`${API_URL}?t=${name}&apikey=${API_KEY}`).then(({data}) => {
-        const id = _.uniqueId();
-
-        let movie = data.Title;
-        let yearOfRelease = data.Year;
-        let duration = data.Runtime;
-        let actors = data.Actors;
-        let poster = data.Poster;
-        let boxOffice = data.BoxOffice;
-        let rottenTomatoesScore = data.Ratings[1].Value;
-
-        const db = { 
-            "id": id,
-            "movie" : movie,
-            "yearOfRelease" : yearOfRelease,
-            "duration" : duration,
-            "actors" : actors,
-            "poster" : poster,
-            "boxOffice" : boxOffice,
-            "rottenTomatoesScore" : rottenTomatoesScore
-        };
-
-        movies.push(db);
-        
-        res.json({
-            message: `Just added ${movie}`,
-            movies
-        });        
-    })
-})
-
-
-/* DELETE movie */
-router.delete('/:id', (req, res) => {
-    // Get the :id of the user we want to delete from the params of the request
-    const {
-        id
-    } = req.params;
-
-    // Remove from "DB"
-    _.remove(movies, ["id", id]);
-
-    // Return message
-    res.json({
-        message: `Just removed ${id}`
-    });
-});
-
-/* UPDATE movie */
-router.post('/:id', (req, res) => {
-    // Get the :id of the user we want to update from the params of the request
-    const {
-        id
-    } = req.params;
-    // Get the new data of the user we want to update from the body of the request
-    const {
-        movie
-    } = req.body;
-    // Find in DB
-    const userToUpdate = _.find(movies, ["id", id]);
-    // Update data with new data (js is by address)
-    userToUpdate.movie = movie;
-
-    // Return message
-    res.json({
-        message: `Just updated ${id} with ${movie}`
-    });
-});
+  
+    // Save User in the database
+    user
+      .save()
+      .then(data => {
+        // we wait for insertion to be complete and we send the newly user integrated
+        res.send(data);
+      })
+      .catch(err => {
+        // In case of error during insertion of a new user in database we send an
+        // appropriate message
+        res.status(500).send({
+          message: err.message || 'Some error occurred while creating the User.'
+        });
+      });
+  };
+  
+  // Retrieve and return all Users from the database.
+exports.findAll = (req, res) => {
+    User.find()
+      .then(users => {
+        res.send(users);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: err.message || 'Some error occurred while retrieving users.'
+        });
+      });
+};
+  
+  // Find a single User with a UserId
+exports.findOne = (req, res) => {
+    id = mongoose.Types.ObjectId(req.params.id);
+    User.findById(id)
+      .then(user => {
+        if (!user) {
+          return res.status(404).send({
+            message: 'User not found with id ' + id
+          });
+        }
+        res.send(user);
+      })
+      .catch(err => {
+        if (err.kind === 'ObjectId') {
+          return res.status(404).send({
+            message: 'User not found with id ' + id
+          });
+        }
+        return res.status(500).send({
+          message: 'Error retrieving user with id ' + id
+        });
+      });
+};
+  
+  // Update a User identified by the UserId in the request
+exports.update = (req, res) => {
+    // Validate Request
+    if (!req.body.firstName) {
+      return res.status(400).send({
+        message: 'first name can not be empty'
+      });
+    }
+  
+    // Find user and update it with the request body
+    User.findByIdAndUpdate(
+      req.params.userId,
+      {
+        title: req.body.firstName,
+        content: req.body.lastName || ''
+      },
+      { new: true }
+    )
+      .then(user => {
+        if (!user) {
+          return res.status(404).send({
+            message: 'User not found with id ' + req.params.userId
+          });
+        }
+        res.send(user);
+      })
+      .catch(err => {
+        if (err.kind === 'ObjectId') {
+          return res.status(404).send({
+            message: 'User not found with id ' + req.params.userId
+          });
+        }
+        return res.status(500).send({
+          message: 'Error updating user with id ' + req.params.userId
+        });
+      });
+};
+  
+  // Delete a User with the specified UserId in the request
+exports.delete = (req, res) => {
+    User.findByIdAndRemove(req.params.userId)
+      .then(user => {
+        if (!user) {
+          return res.status(404).send({
+            message: 'User not found with id ' + req.params.userId
+          });
+        }
+        res.send({ message: 'User deleted successfully!' });
+      })
+      .catch(err => {
+        if (err.kind === 'ObjectId' || err.name === 'NotFound') {
+          return res.status(404).send({
+            message: 'User not found with id ' + req.params.userId
+          });
+        }
+        return res.status(500).send({
+          message: 'Could not delete user with id ' + req.params.userId
+        });
+      });
+};
