@@ -5,8 +5,20 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var sensorsRouter = require("./routes/sensors");
+var measuresRouter = require("./routes/measures");
 
 var app = express();
+
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const dbName = "DashboardProject";
+const dbUrl = `mongodb://localhost:27017/${dbName}`;
+
+//Connecting to the database
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true
+});
 
 app.use(logger("dev"));
 app.use(express.json());
