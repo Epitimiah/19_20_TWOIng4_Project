@@ -33,7 +33,7 @@ class App extends React.Component {
       admin: false,
       toggleButton: "Admin",
       Subject: "User",
-      Action: "none", 
+      Action: "Add", 
     }
   }
 
@@ -51,14 +51,14 @@ class App extends React.Component {
       if ( this.state.admin === true){
         this.setState({
           admin: !this.state.admin,
-          toggleButton: "Home",
+          toggleButton: "Admin",
         })
       }
       //Change le contenue du bouton Admin en "Admin" si on est sur la page Home 
       else{
         this.setState({
           admin: !this.state.admin,
-          toggleButton: "Admin",
+          toggleButton: "Home",
         })
       }
   }
