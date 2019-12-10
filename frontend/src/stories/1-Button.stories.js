@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { Button } from '@storybook/react/demo';
 
 export default {
-  title: 'Button',
+  title: 'truc',
 };
 
 export const text = () => <Button onClick={action('clicked')}>Hello Button</Button>;
