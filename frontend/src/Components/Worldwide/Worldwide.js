@@ -19,6 +19,11 @@ import {
 
   class Worldwide extends React.Component {
     
+   //Permet de set les données lors de la construction du component 
+    componentDidMount() {
+        this.getData();
+    }
+    
     constructor(props) {
       super(props); 
       this.state = {
@@ -51,6 +56,30 @@ import {
       }
     }
 
+    getData() {
+      //Permet de get la data from  la BDD
+        axios.get(`http://localhost:3001/Users/`)
+        .then(response => {
+          let sensorUser= []; 
+          let buffer = []; 
+          
+          //On get tout les sensors
+          sensorUser = response.data.filter(element => (element.userID === this.props.userId)  );
+          
+          //On get toutes les locations
+          sensorUser.forEach(element => buffer.push(element.location) ); 
+          //console.log( sensorUser); 
+  
+          this.setState({ sensorLocation: buffer.slice() });
+  
+          })
+          .catch(error =>{
+            console.log("Inside error");
+            console.log(error);
+        })    
+    }
+
+    
     SetData(data) {
       this.setState({
         data: data,
