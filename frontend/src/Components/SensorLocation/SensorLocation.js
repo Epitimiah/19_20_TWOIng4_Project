@@ -32,10 +32,10 @@ class SensorLocation extends React.Component {
         let sensorUser= []; 
         let buffer = []; 
         
-        //this.setState({ dataSensor: response.data });
-        //response.data.forEach(element => sensorUser = element.filter    )
+        //On get tout les sensors
         sensorUser = response.data.filter(element => (element.userID === this.props.userId)  );
         
+        //On get toutes les locations
         sensorUser.forEach(element => buffer.push(element.location) ); 
         //console.log( sensorUser); 
 
@@ -52,7 +52,7 @@ class SensorLocation extends React.Component {
       return(
         <Col sm={12}  md={3} className="Col rounded" >
           <h4> Sensor location  </h4>
-           
+        
            {this.state.sensorLocation.map((element) => ( <p> {element} </p>  ))}
            
            
