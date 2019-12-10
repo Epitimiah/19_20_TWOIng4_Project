@@ -1,0 +1,15 @@
+
+.Col{                         
+    border:solid lavender 1px; 
+    background-color: rgb(32, 34, 36);
+    margin-bottom: 1rem;
+    /* Pour faire une boite */ 
+    padding: 1vh;
+    box-sizing: border-box;
+    font-size: 1.5rem;
+  }
+  .Col-Top h4 {
+    font: bold;
+    color: whitesmoke;
+  }
+  

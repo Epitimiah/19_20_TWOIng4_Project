@@ -1,0 +1,8 @@
+.Col{
+    border:solid rgb(161, 161, 223) 2px; 
+    background-color:  rgba(28, 35, 42, 0.89);
+    padding-left: 10rem;                         /*     */
+    padding: 1vh;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+  }

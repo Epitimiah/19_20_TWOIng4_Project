@@ -1,0 +1,10 @@
+
+
+
+.Col {
+    border:solid rgb(117, 117, 221) 2px; 
+    background-color:  rgba(231, 239, 247, 0.89);
+    padding-left: 10rem;                         /*     */
+    padding: 1vh;
+    box-sizing: border-box;
+  }
