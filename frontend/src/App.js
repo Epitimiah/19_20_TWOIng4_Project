@@ -168,12 +168,12 @@ class App extends React.Component {
     
               <Col md={4} className="Col-Ahead rounded">
                 {/* Pour metter le widget user location */}
-                <UserLocation> 
+                <UserLocation userId= {this.state.UserId}> 
                 </UserLocation>
                 <br></br>
                 <br></br>
                 {/* Pour metter le widget Nb sensor */}
-                <NbSensors>
+                <NbSensors userId= {this.state.UserId}> 
                 </NbSensors>
               </Col>
 
@@ -191,17 +191,17 @@ class App extends React.Component {
               <BarreChart>
               </BarreChart>
               {/* Pour metter le widget sensor location */}
-              <SensorLocation>
+              <SensorLocation userId= {this.state.UserId}>
               </SensorLocation>
               
     
               <Col className="Col-Down rounded">
                 {/* Pour metter le widget personne/Home */}
-                <PerHome userId={this.state.UserId}>
+                <PerHome userId= {this.state.UserId}>
                 </PerHome>
                 
                 {/* Pour metter le widget HouseSize */}
-                <HouseSize>
+                <HouseSize userId= {this.state.UserId}>
                 </HouseSize>
                
               </Col>

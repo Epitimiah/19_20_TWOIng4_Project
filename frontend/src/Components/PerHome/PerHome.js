@@ -8,15 +8,11 @@ import {
     } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-//
-// import axios from 'axios';
 const axios = require('axios');
-const API_URL = "http://localhost:3001/";  
-
 
 class PerHome extends React.Component {
  
-   //
+   //Permet de set les données lors de la construction du component 
   componentDidMount() {
     this.getData();
 }
@@ -29,35 +25,18 @@ class PerHome extends React.Component {
   }
 
 getData() {
-  console.log("hey 2");
-    axios.get('http://localhost:3001/users/5ddb94c6fc13ae640c000014')
+  //Permet de get la data from  la BDD
+    axios.get(`http://localhost:3001/users/${this.props.userId}`)
     .then(response => {
-        //this.setState({ nbPersonPerHome: response.data.location});
         this.setState({ nbPersonPerHome: response.data.personsInHouse});
-        console.log("hey");
-       
     })
     .catch(error =>{
         console.log("Inside error");
         console.log(error);
-    })
-    
+    })    
 }
-    /*
-    axios
-        .get(`${API_URL}/users/${this.props.userId}`)
-        .then(({data}) => {
-            const main = data.location;
-            return main;
-            
-        })
-        .catch(console.error);
-      */
-    
-
 
     render(){
-      //this.callAPI (); 
       return(
         <Row sm={12} className="Col rounded">
          <Col> 
