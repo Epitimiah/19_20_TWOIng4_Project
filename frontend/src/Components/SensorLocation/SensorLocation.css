@@ -3,9 +3,14 @@
     border:solid lavender 1px;  
     justify-content: center;
     align-content: center;
+  
   }
   
   .Col-sensor-location h4{
     font: bold;
     color: whitesmoke;
+  }
+
+  .Col .p {
+    font-size: 0.5rem;
   }
