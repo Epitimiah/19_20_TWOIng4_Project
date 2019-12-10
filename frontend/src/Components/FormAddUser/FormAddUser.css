@@ -1,0 +1,32 @@
+
+
+
+.Section {
+    background-color: #24272fb0;   
+    min-height: 100vh;
+  
+    /* Pour mettre les bords */
+    padding: 3vh;
+    box-sizing: border-box;
+  
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.856); 
+  }
+  .Row {
+    justify-content: center;
+    /* border:solid red 1px; */
+  
+    /* Pour faire une boite */ 
+    padding: 5vh;
+    box-sizing: border-box;
+  }
+  
+  /* efzfzefzefzefzef */
+  .Col{     
+    border:solid rgb(161, 161, 223) 2px; 
+    background-color:  rgba(28, 35, 42, 0.89);
+    padding-left: 10rem;                         /*     */
+    padding: 1vh;
+    box-sizing: border-box;
+  }
+  

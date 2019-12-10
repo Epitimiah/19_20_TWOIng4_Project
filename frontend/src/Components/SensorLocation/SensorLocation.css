@@ -1,0 +1,11 @@
+.Col {   
+    margin-left: 1.5rem;
+    border:solid lavender 1px;  
+    justify-content: center;
+    align-content: center;
+  }
+  
+  .Col-sensor-location h4{
+    font: bold;
+    color: whitesmoke;
+  }
