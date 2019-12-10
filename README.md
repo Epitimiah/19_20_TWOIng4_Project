@@ -1,6 +1,8 @@
-VUONG Jimmy
-LEVY Léa
-OCRES TD2
+<p> VUONG Jimmy </p>
+<p> LEVY Léa </p>
+<p> OCRES TD2 </p>
+<p> Voici un lien d'invatation vers notre trello que nous avons utilisé pour nous organiser lors de ce projet </p>
+<p> https://trello.com/invite/b/EMM4KBb2/34ce359a70345b7a01efe9634e6903d6/dashboard </p>
 
 
 
