@@ -15,7 +15,7 @@ class NbSensors extends React.Component {
         <Row sm={12}  className="Col rounded">
             <Col>
                 <h4> Nb sensors :</h4> 
-                <p>  46 </p>
+                <p>  46 </p> {/* {this.props.nbsensor} */}
             </Col>
         </Row>
       );

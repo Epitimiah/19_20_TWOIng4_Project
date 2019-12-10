@@ -15,7 +15,7 @@ class PerHome extends React.Component {
         <Row sm={12} className="Col rounded">
          <Col> 
             <h4> Number of persons at home : </h4> 
-            <p> 4 </p>
+            <p> 4 </p> {/* {this.props.nbPersonPerHome} */}
           </Col>
         </Row>
       ); 

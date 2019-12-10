@@ -15,7 +15,7 @@ class UserLocation extends React.Component {
         <Row sm={12} className="Col">
            <Col> 
               <h4 > User location : </h4>
-              <p> China </p>
+              <p> China </p> {/* {this.props.location} */}
             </Col>
         </Row>
       ); 

@@ -17,35 +17,46 @@ import {
   PolarRadiusAxis,
 } from 'recharts';
 
-
-const data_pie = [
-    {
-      "Country": "China",
-      "number-people": 2 
-    },
-    {
-      "Country": "Thailande",
-      "number-people": 4 
-  
-    },
-    {
-      "Country": "Paris",
-      "number-people": 1 
-  
-    },
-    {
-      "Country": "London",
-      "number-people": 5 
-  
-    },
-    {
-      "Country": "Indonesia",
-      "number-people": 0
-  
-    }
-  ]; 
   class Worldwide extends React.Component {
-  
+    
+    constructor(props) {
+      super(props); 
+      this.state = {
+        data_pie: [
+          {
+            "Country": "China",
+            "number-people": 2 
+          },
+          {
+            "Country": "Thailande",
+            "number-people": 4 
+        
+          },
+          {
+            "Country": "Paris",
+            "number-people": 1 
+        
+          },
+          {
+            "Country": "London",
+            "number-people": 5 
+        
+          },
+          {
+            "Country": "Indonesia",
+            "number-people": 0
+        
+          }
+        ], 
+      }
+    }
+
+    SetData(data) {
+      this.setState({
+        data: data,
+      })
+    }
+
     render(){
       return(
        
@@ -55,7 +66,7 @@ const data_pie = [
                outerRadius={70}
                width={730}
                height={250}
-               data={data_pie}
+               data={this.state.data_pie}
                >
                   <PolarGrid />
                   <PolarAngleAxis dataKey="Country" tick={{fill:'white', fontSize:"1.25rem"}} />
