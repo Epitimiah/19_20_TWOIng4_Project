@@ -18,7 +18,7 @@ class HouseSize extends React.Component {
         <Row  sm={12} md={3} className="Col rounded">
            <Col> 
              <h4> House size : </h4>
-             <p> 40 m²</p> 
+             <p> 40 m²</p>  {/* {this.props.HouseSize} m² */}
             </Col>
         </Row>
       ); 
