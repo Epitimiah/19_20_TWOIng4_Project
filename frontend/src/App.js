@@ -25,6 +25,10 @@ import FormAddSensor from './Components/FormAddSensor/FormAddSensor.js';
 import FormAddMeasure from './Components/FormAddMeasure/FormAddMeasure.js'; 
 import Delete from './Components/Delete/Delete.js'; 
 
+import axios from 'axios';
+
+const API_URL = "https://localhost:3001/";  
+
 
 class App extends React.Component {
   constructor(props) {
@@ -33,7 +37,8 @@ class App extends React.Component {
       admin: false,
       toggleButton: "Admin",
       Subject: "User",
-      Action: "Add", 
+      Action: "Add",
+      UserId: "5ddb94c6fc13ae640c000014",
     }
   }
 
@@ -140,6 +145,16 @@ class App extends React.Component {
 
   }
 
+  callAPI () {
+    axios
+        .get(`${API_URL}/users/5ddb94c6fc13ae640c000014`)
+        .then(({data}) => {
+            const main = data.location;
+            document.getElementsByClassName('Requete').innerHTML=main;
+        })
+        .catch(console.error);
+}
+
   render(){
     if(this.state.admin === false){
       return (
@@ -182,7 +197,7 @@ class App extends React.Component {
     
               <Col className="Col-Down rounded">
                 {/* Pour metter le widget personne/Home */}
-                <PerHome>
+                <PerHome userId={this.state.UserId}>
                 </PerHome>
                 
                 {/* Pour metter le widget HouseSize */}
