@@ -1,3 +1,6 @@
+Nous avions commencé à coder le front avant d'avoir ce repository, voici le lien de notre repository Github avec tous les commits etc de notre front : 
+https://github.com/Epitimiah/Dashboard
+
 # Frontend
 
 Ce dossier contiendra la partie frontend de votre projet.
